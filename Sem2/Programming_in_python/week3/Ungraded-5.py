@@ -1,13 +1,13 @@
-# One test case failed, cannot seem to figure it out. Suspect a 
-# problem with the grader or some kind of formattingerror.
-
-
 n = int(input())
 
-
+answers = []
 for z in range(1, n):
 	for y in range(1, z):
 		for x in range(1, y):
 			if x**4 + y**3 == z**2:
-				print(f'{x} {y} {z}')
+				answers.append((x, y, z))
+
+answers.sort(key=lambda x: x[0])
+for answer in answers:
+	print('{} {} {}'.format(*answer))
 
