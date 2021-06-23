@@ -1,0 +1,1 @@
+print(3**35 // int(input()))

@@ -1,0 +1,1 @@
+print(2**100 % int(input()))
