@@ -7,9 +7,8 @@ def trending(subject_topics):
 	for subject in all_subjects:
 		try:
 			occurances[subject] += 1
-		except:
+		except KeyError:
 			occurances[subject] = 1
-	# print(occurances)
 	
 	min_ = min(occurances.values())
 	max_ = max(occurances.values())

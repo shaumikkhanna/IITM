@@ -14,5 +14,3 @@ def dictToList(my_dict):
 			out[ind][k] = v
 
 	return out
-
-dictToList({1:{5:1, 2:9}, 3:{0:1}})
