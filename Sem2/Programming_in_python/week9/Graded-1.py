@@ -1,18 +1,29 @@
-import pandas as pd 
-
 def solution():
 
 	# Read the file
-	data = pd.read_csv('WorldPopulation.csv', header=0)
+	data = []
+	with open('WorldPopulation.csv', 'r') as f:
+		column_names = f.readline().strip().split(',')
+		for line in f.readlines():
+			datapoint = [float(x) for x in line.strip().split(',')]
+			data.append(dict(zip(column_names, datapoint)))
 
+	# First Query
 	year_query = int(input())
-	print(data[data['Year'] == year_query]['Population'])
+	for datapoint in data:
+		if datapoint['Year'] == year_query:
+			print(int(datapoint['Population']))
+			break
 
+	# Second Query
 	population_query = int(input())
-	print(min(data[data['Population'] > population_query]['Year']))
+	years_with_higher_pop = []
+	for datapoint in data:
+		if datapoint['Population'] > population_query:
+			years_with_higher_pop.append(datapoint['Year'])
+	print(int(min(years_with_higher_pop)))
 
-	max_query = input()
-	print(max(data[max_query]))
-
-
+	# Third Query
+	field_query = input()
+	print(max(data, key=lambda x: x[field_query])[field_query])
 
