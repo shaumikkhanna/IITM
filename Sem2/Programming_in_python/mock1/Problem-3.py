@@ -1,7 +1,3 @@
-# Function seems to return the max value of the dictionary which 
-# is what i expected but the grader seems to want the minimum value. Seems like an issue with the grader
-
-
 def consolidate(students):
 	consol = dict()
 
