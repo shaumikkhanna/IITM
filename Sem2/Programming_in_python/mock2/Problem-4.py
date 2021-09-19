@@ -18,7 +18,7 @@ with open('file.txt', 'r') as f:
 		number_of_words_in_sentence = len(words)
 		if number_of_words_in_sentence > length_of_max_sentence:
 			length_of_max_sentence = number_of_words_in_sentence
-			max_sentence = ' '.join(words)
+			max_sentence = line
 
 		# Update word_freq dictionary
 		for word in words:
