@@ -32,11 +32,3 @@ def quicksort(lst, left=0, right=None):
 	return lst
 
 
-import numpy as np
-
-x = np.random.random((100000, 10))
-
-for x0 in x:
-	l = list(x0)
-	if sorted(l) != quicksort(l):
-		print(l)
