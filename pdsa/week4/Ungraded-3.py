@@ -1,4 +1,3 @@
-# Not finished
 
 def take_input():
 	maze = []
