@@ -1,14 +1,21 @@
 import numpy as np
 
 
+### SINGLE SOURCE SHORTEST PATH ALGORITHMS
+
 def dijkstra_mtx(wmat, s):
 	"""
-	Given a wieghted adjacency matrix, finds the shortest paths from the source s to every other vertex using dijkstra's algorithm.
+	Given a weighted adjacency matrix, finds the shortest 
+	paths from the source s to every other vertex using 
+	dijkstra's algorithm (fire algorithm). This alsorithm
+	does not allow for negative weights.
 	"""
 	
 	no_of_rows, no_of_cols, _ = wmat.shape
 	infinity = np.max(wmat)*no_of_rows + 1
 
+	# Initialisation; here, distance is the upper bound 
+	# for the time to burn from the source.
 	visited, distance = dict(), dict()
 	for v in range(no_of_rows):
 		visited[v] = False
@@ -16,13 +23,15 @@ def dijkstra_mtx(wmat, s):
 
 	distance[s] = 0
 	for u in range(no_of_rows):
+
+		# Find next vertex with minimum distance
 		next_vertex_distance = min(distance[v] for v in range(no_of_rows) if not visited[v])
 		next_vertex_list = [v for v in range(no_of_rows) if (not visited[v] and distance[v] == next_vertex_distance)]
-
 		if not next_vertex_list:
 			break
-
 		next_vertex = min(next_vertex_list)
+
+		# Update expected time to burn of neighbors of next_vertex 
 		visited[next_vertex] = True
 		for v in range(no_of_cols):
 			if wmat[next_vertex, v, 0] and not visited[v]:
@@ -33,11 +42,16 @@ def dijkstra_mtx(wmat, s):
 
 def dijkstra_list(wlist, s):
 	"""
-	Given a wieghted adjacency list, finds the shortest paths from the source s to every other vertex using dijkstra's algorithm.
+	Given a weighted adjacency list, finds the shortest 
+	paths from the source s to every other vertex using 
+	dijkstra's algorithm (fire algorithm). This alsorithm
+	does not allow for negative weights.
 	"""
 	
 	infinity = len(wlist.keys())*max(d for u in wlist.keys() for _, d in wlist[u]) + 1
 
+	# Initialisation; here, distance is the upper bound 
+	# for the time to burn from the source.
 	visited, distance = dict(), dict()
 	for v in wlist.keys():
 		visited[v] = False
@@ -45,13 +59,15 @@ def dijkstra_list(wlist, s):
 
 	distance[s] = 0
 	for u in wlist.keys():
+
+		# Find next vertex with minimum distance
 		next_vertex_distance = min(distance[v] for v in wlist.keys() if not visited[v])
 		next_vertex_list = [v for v in wlist.keys() if (not visited[v] and distance[v] == next_vertex_distance)]
-
 		if not next_vertex_list:
 			break
-
 		next_vertex = min(next_vertex_list)
+
+		# Update expected time to burn of neighbors of next_vertex 
 		visited[next_vertex] = True
 		for v, d in wlist[next_vertex]:
 			if not visited[v]:
@@ -62,12 +78,16 @@ def dijkstra_list(wlist, s):
 
 def bellman_ford_mtx(wmtx, s):
 	"""
-	Given a wieghted adjacency matrix, finds the shortest paths from the source s to every other vertex using bellman-ford algorithm.
+	Given a weighted adjacency matrix, finds the shortest paths 
+	from the source s to every other vertex using bellman-ford 
+	algorithm. Weights need not be positive but there must not
+	be any negative weight cycle.
 	"""
 
 	no_of_rows, no_of_cols, _ = wmtx.shape
 	infinity = np.max(wmtx) + 1
 
+	# Initialisation
 	distance = dict()
 	for v in range(no_of_rows):
 		distance[v] = infinity
@@ -75,9 +95,12 @@ def bellman_ford_mtx(wmtx, s):
 	distance[s] = 0
 
 	for _ in range(no_of_rows):
+		# Repeat n times till stable
 		for u in range(no_of_rows):
 			for v in range(no_of_cols):
 				if wmat[u, v, 0]:
+					
+					# For every edge u, v
 					distance[v] = min([
 						distance[v], distance[u] + wmat[u][v][1]
 						])
@@ -87,11 +110,15 @@ def bellman_ford_mtx(wmtx, s):
 
 def bellman_ford_list(wlist, s):
 	"""
-	Given a wieghted adjacency list, finds the shortest paths from the source s to every other vertex using bellman-ford algorithm.
+	Given a weighted adjacency list, finds the shortest paths 
+	from the source s to every other vertex using bellman-ford 
+	algorithm. Weights need not be positive but there must not
+	be any negative weight cycle.
 	"""
 
 	infinity = len(wlist.keys())*max(d for u in wlist.keys() for _, d in wlist[u]) + 1
 
+	# Initialisation
 	distance = dict()
 	for v in wlist.keys():
 		distance[v] = infinity
@@ -99,8 +126,11 @@ def bellman_ford_list(wlist, s):
 	distance[s] = 0
 
 	for _ in range(len(wlist.keys())):
+		# Repeat n times
 		for u in wlist.keys():
 			for v, d in wlist[u]:
+				# For every edge u, v
+
 				distance[v] = min([
 					distance[v], distance[u] + d
 					])
@@ -108,28 +138,39 @@ def bellman_ford_list(wlist, s):
 	return distance
 
 
+### ALL PAIRS SHORTEST PATH ALGORITHMS
+
+
 def floyd_warshall(wmat):
 	"""
-	Given a weighted asjacency matrix, will return a matrix with the lengths of the shortest paths from any pair of vertices.
+	Given a weighted adjacency matrix, will return a matrix with the lengths of the shortest paths from any pair of vertices.
 	"""
 
 	no_of_rows, no_of_cols, _ = wmat.shape
 	infinity = np.max(wmat) + 1
 	
+	# Initialisation of shortest path matrix
 	sp = np.zeros(shape=(no_of_rows, no_of_cols, no_of_rows+1))
 	for i in range(no_of_rows):
 		for j in range(no_of_cols):
 			sp[i, j, 0] = wmat[i, j, 1] if wmat[i, j, 0] else infinity
 
 	for k in range(no_of_cols):
+		# kth stage of shortest path matrix
+
 		for i in range(no_of_rows):
 			for j in range(no_of_cols):
+
+				# For all i, j update shortest path matrix
 				sp[i, j, k+1] = min([
 					sp[i, j, k],
 					sp[i, k, k] + sp[k, j, k]
 					])
 
 	return sp[:, :, -1]
+
+
+### MINIMUM COST SPANNING TREES ALGORITHMS
 
 
 def prim_list(wlist):
@@ -139,38 +180,49 @@ def prim_list(wlist):
 
 	infinity = len(wlist.keys())*max(d for u in wlist.keys() for _, d in wlist[u]) + 1
 
-	visited, distance, tree_edges = dict(), dict(), []
+	# Initialisation; here, distance means distance of vertex 
+	# from all vertices already in the tree.
+	tree_visited, tree_edges = dict(), []
+	distance = dict()
 	for v in wlist.keys():
-		visited[v] = False
+		tree_visited[v] = False
 		distance[v] = infinity
 
-	visited[0] = True
+	tree_visited[0] = True
 	for v, d in wlist[0]:
 		distance[v] = d
 
 	for _ in range(len(wlist.keys())):
+		
+		# Find lowest cost edge u, v where u in tree and v not in tree.
 		min_distance = infinity
 		next_vertex = None
 		for u in wlist.keys():
 			for v, d in wlist[u]:
-				if visited[u] and not visited[v] and d < min_distance:
+				if tree_visited[u] and not tree_visited[v] and d < min_distance:
 					min_distance = d
 					next_vertex = v
 					next_edge = (u, v)
 		
+		# If graph is disconnected
 		if next_vertex is None:
 			break
 
-		visited[next_vertex] = True
+		tree_visited[next_vertex] = True
 		tree_edges.append(next_edge)
+
+		# Update the distances of the neighbors of next_vertex.
 		for v, d in wlist[next_vertex]:
-			if not visited[v]:
+			if not tree_visited[v]:
 				distance[v] = min([distance[v], d])
 
 		return tree_edges
 
 
 def prim_list2(wlist):
+	"""
+	This is a better implementation of the prim_list function.
+	"""
 
 	infinity = len(wlist.keys())*max(d for u in wlist.keys() for _, d in wlist[u]) + 1
 
@@ -202,16 +254,21 @@ def kruskal(wlist):
 	Finds a minimum cost spanning tree using kruskal's algorithm. 
 	"""
 	
-	edges, component_number, tree_edges = [], dict(), []
+	# Initialisation
+	tree_edges, component_number = [], dict()
+	edges = []
 	for u in wlist.keys():
 		edges.extend((d, u, v) for v, d in wlist[u])
 		component_number[u] = u
 
+	# Sort edges by weight
 	edges.sort()
 
 	for d, u, v in edges:
 		if component_number[u] != component_number[v]:
 			tree_edges.append((u, v))
+
+			# Update component number of all vertices connected to u.
 			current_component = component_number[u]
 			for w in wlist.keys():
 				if component_number[w] == current_component:
@@ -219,15 +276,4 @@ def kruskal(wlist):
 
 	return tree_edges
 
-l = {
-	1: [(2, 10), (8, 8)],
-	2: [(6, 2)],
-	3: [(2, 1), (4, 1)],
-	4: [(5, 3)],
-	5: [(6, -1)],
-	6: [(3, -2)],
-	7: [(2, -4), (6, -1)],
-	8: [(7, 1)]
-}
 
-print(bellman_ford_list(l, 1))
