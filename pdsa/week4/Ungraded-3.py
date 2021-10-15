@@ -17,15 +17,21 @@ def create_adj_list(maze):
 
 	for i in range(1, height-1):
 
+		# Check for source
 		if maze[i][0] != 'X':
 			source = (i, 0)
 			adj_list[(i, 0)] = [(i, 1)]
-		if maze[i][width-1] != 'X':
-			destination = (i, width-1)
-			adj_list[(i, width-1)] = [(i, width-2)]
+
+		# Check for key
 		if maze[i][width-1] == '*':
 			key = (i, width-1)
 			adj_list[(i, width-1)] = [(i, width-2)]
+
+		# Check for destination
+		if maze[i][width-1] != 'X':
+			destination = (i, width-1)
+			adj_list[(i, width-1)] = [(i, width-2)]
+		
 
 		for j in range(1, width-1):
 			if maze[i][j] == 'X':

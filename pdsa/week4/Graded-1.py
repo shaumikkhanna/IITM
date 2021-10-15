@@ -27,9 +27,7 @@ def findConnectionLevel(n, Gmat, Px, Py):
 			if Gmat[current_vertex][neighbor]:
 				if level[neighbor] == -1:
 					level[neighbor] = level[current_vertex]+1
-					if neighbor == Py:
-						return level[neighbor]
 					q.add(neighbor)
 
-	return 0
+	return level[Py]
 
