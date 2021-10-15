@@ -8,6 +8,10 @@ def take_input():
 		else:
 			maze.append(input_)
 
+	return maze
+
+
+def create_adj_list(maze):
 	height, width = len(maze), len(maze[0])
 	adj_list = dict()
 
@@ -19,6 +23,9 @@ def take_input():
 		if maze[i][width-1] != 'X':
 			destination = (i, width-1)
 			adj_list[(i, width-1)] = [(i, width-2)]
+		if maze[i][width-1] == '*':
+			key = (i, width-1)
+			adj_list[(i, width-1)] = [(i, width-2)]
 
 		for j in range(1, width-1):
 			if maze[i][j] == 'X':
@@ -28,6 +35,7 @@ def take_input():
 				key = (i, j)
 
 			accessible = []
+			
 			# North
 			if maze[i-1][j] != 'X':
 				accessible.append((i-1, j))
@@ -83,7 +91,9 @@ def bfs_shortest_path(adj_list, a, b):
 
 
 def main():
-	adj_list, source, key, destination = take_input()
+	maze = take_input()
+	adj_list, source, key, destination = create_adj_list(maze)
+
 	from_source_to_key = bfs_shortest_path(adj_list, source, key)
 	if from_source_to_key == -1:
 		return -1
