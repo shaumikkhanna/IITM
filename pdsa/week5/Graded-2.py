@@ -1,5 +1,5 @@
 
-def djikstra(wlist, a, b):
+def dijkstra(wlist, a, b):
 	infinity = len(wlist.keys())*max(d for u in wlist.keys() for _, d in wlist[u]) + 1
 
 	visited, distance, parent = dict(), dict(), dict()
@@ -34,8 +34,8 @@ def djikstra(wlist, a, b):
 
 def min_cost_walk(wlist, source, destination, via):
 	
-	distance_a, path_a = djikstra(wlist, source, via)
-	distance_b, path_b = djikstra(wlist, via, destination)
+	distance_a, path_a = dijkstra(wlist, source, via)
+	distance_b, path_b = dijkstra(wlist, via, destination)
 
 	return distance_a + distance_b, path_a + path_b[1:]
 
