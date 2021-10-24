@@ -22,7 +22,7 @@ def dijkstra_mtx(wmat, s):
 		distance[v] = infinity
 
 	distance[s] = 0
-	for u in range(no_of_rows):
+	for _ in range(no_of_rows):
 
 		# Find next vertex with minimum distance
 		next_vertex_distance = min(distance[v] for v in range(no_of_rows) if not visited[v])
@@ -58,7 +58,7 @@ def dijkstra_list(wlist, s):
 		distance[v] = infinity
 
 	distance[s] = 0
-	for u in wlist.keys():
+	for _ in range(len(wlist.keys())):
 
 		# Find next vertex with minimum distance
 		next_vertex_distance = min(distance[v] for v in wlist.keys() if not visited[v])
