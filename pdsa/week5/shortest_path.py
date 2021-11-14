@@ -264,7 +264,7 @@ def kruskal(wlist):
 	# Sort edges by weight
 	edges.sort()
 
-	for d, u, v in edges:
+	for _, u, v in edges:
 		if component_number[u] != component_number[v]:
 			tree_edges.append((u, v))
 
