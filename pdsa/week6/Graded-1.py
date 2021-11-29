@@ -92,6 +92,14 @@ def mergeKLists(L):
 	return out
 
 
+### Testing
+
+k = int(input())
+LL=[]
+for i in range(k):
+    subL = [int(item) for item in input().split(" ")]
+    LL.append(subL)
+print(*mergeKLists(LL))
 
 
 
