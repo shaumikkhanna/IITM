@@ -1,0 +1,1 @@
+echo $PWD >> present.txt
