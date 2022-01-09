@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Test</title>
+	<meta name="description" content="We are learning CSS">
+	<style type="text/css">
+		.name_para {
+			font-size: 20px;
+		}
+		#official {
+			font-size: 20px;
+			color: forestgreen;
+		}
+		form input { /* applies to input tags that are descendants of form tag */
+			background-color: yellow;
+		}
+		form > input:hover { /* applies ot input tags that are children of form tag (only when mouse hover) */
+			background-color: indianred;
+		}
+		form p:first-letter {
+			color: mediumvioletred;
+			font-size: 100px;
+		}
+	</style>
+</head>
+<body>
+	<form>
+		<p class="name_para">Enter the name </p> <input type="text">
+		<div id="personal">
+			<p>Enter the age </p> <input type="text">
+		</div>
+		<div id="official">
+			<p>Enter the roll number </p> <input type="text">
+			We are trying to style.
+		</div>
+	</form>
+</body>
+</html>

@@ -1,0 +1,30 @@
+div {
+	padding: 20px;
+	background-color: #fdfdbb;
+}
+a {
+	color: #ff0000;
+	text-decoration: none;
+}
+#footer {
+	text-align: center;
+}
+th {
+	color: #000000;
+	background-color: #259e3f;
+	border: 1px solid black;
+	text-align: center;
+}
+td {
+	color: #ffffff;
+	background-color: #000000;
+	border: 1px solid black;
+	text-align: right;
+	padding-left: 10px;
+	padding-right: 5px;
+}
+table {
+	border-collapse: collapse;
+	height: 200px;
+	width: 250px;
+}

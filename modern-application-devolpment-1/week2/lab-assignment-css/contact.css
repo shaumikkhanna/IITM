@@ -1,0 +1,14 @@
+div {
+	padding: 20px;
+	background-color: #fdfdbb;
+}
+a {
+	color: #ff0000;
+	text-decoration: none;
+}
+span {
+	color: #0000ff;
+}
+#footer {
+	text-align: center;
+}
