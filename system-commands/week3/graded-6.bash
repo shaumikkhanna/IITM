@@ -1,0 +1,1 @@
+test | tee -a log
