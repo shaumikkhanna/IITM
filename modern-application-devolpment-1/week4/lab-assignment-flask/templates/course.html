@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Course Data</title>
+</head>
+<body>
+	<h1>Course Details</h1>
+	<table border="2", id="course-details-table">
+		<tr>
+			<th>Average Marks</th>
+			<th>Maximum Marks</th>
+		</tr>
+		<tr>
+			<td>{{ avg_marks }}</td>
+			<td>{{ max_marks }}</td>
+		</tr>
+	</table><br>
+	<img src="{{ url_for('static', filename='histogram.png') }}" height="250", width="250"><br>
+	<a href="{{ url_for('hello') }}">Go Back</a>
+</body>
+</html>
