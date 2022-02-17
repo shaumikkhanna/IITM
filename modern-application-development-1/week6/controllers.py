@@ -52,7 +52,7 @@ def create():
 			# multiple enrollment records
 			new_student_id = new_student.student_id
 			for new_course_id in new_courses_ids:
-				new_enrollment = Enrollments(estudent_id=new_student_id, ecourse_id=new_course_id)
+				new_enrollment = Enrollments(student_id=new_student_id, course_id=new_course_id)
 				db.session.add(new_enrollment)
 		except Exception as e:
 			print(e)
@@ -93,11 +93,11 @@ def update(student_id):
 			for course_id in range(1, 5):
 				# to add a course
 				if course_id in updated_course_ids and course_id not in specific_course_ids:
-					new_enrollment = Enrollments(estudent_id=student_id, ecourse_id=course_id)
+					new_enrollment = Enrollments(student_id=student_id, course_id=course_id)
 					db.session.add(new_enrollment)
 				# to remove a course
 				if course_id in specific_course_ids and course_id not in updated_course_ids:
-					specific_enrollment = Enrollments.query.filter_by(estudent_id=student_id, ecourse_id=course_id).first()
+					specific_enrollment = Enrollments.query.filter_by(student_id=student_id, course_id=course_id).first()
 					db.session.delete(specific_enrollment)
 		except Exception as e:
 			print(e)
@@ -116,14 +116,14 @@ def delete(student_id):
 		specific_student = Student.query.filter_by(student_id=student_id).first()
 		db.session.delete(specific_student)
 
-		for specific_enrollment in Enrollments.query.filter_by(estudent_id=student_id).all():
+		for specific_enrollment in Enrollments.query.filter_by(student_id=student_id).all():
 			db.seesion.delete(specific_enrollment)
 	except Exception as e:
 		print(e)
 		db.session.rollback()
 		raise
 	else:
-		print('Successfully commited')
+		# print('Successfully commited')
 		db.session.commit()
 
 	return redirect('/')
