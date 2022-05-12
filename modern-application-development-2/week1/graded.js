@@ -18,18 +18,18 @@ console.log(x.name);
 
 // q6
 const obj2 = {
-	name: 'Rohit',
+	name: "Rohit",
 	changeName: (name) => {
 		this.name = name;
 	},
 }
 
-obj2.changeName('Mohit');
+obj2.changeName("Mohit");
 console.log(obj2.name);
 
 // q7
 const obj3 = {
-	name: 'Rohit',
+	name: "Rohit",
 	arrowFunction: null,
 	normalfunction: function() {
 		this.arrowFunction = () => {
@@ -38,5 +38,21 @@ const obj3 = {
 	},
 }
 
-obj3.normalfunction()
-obj3.arrowFunction()
+obj3.normalfunction();
+obj3.arrowFunction();
+
+// q10
+let startNamePrinter = (name) => {
+	let x = name.split('').reverse();
+	console.log('start');
+	let handler = setInterval(() => {
+		let y = x.pop();
+		console.log(y);
+	}, 1000)
+
+	setTimeout(() => {
+		clearInterval(handler);
+	}, (name.length + 1) * 1000)
+}
+
+startNamePrinter('Orange');
