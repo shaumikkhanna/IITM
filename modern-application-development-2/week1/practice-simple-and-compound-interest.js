@@ -54,8 +54,7 @@ function numberOfDays(startingDate, endingDate) {
 	let s = new Date(startingDate);
 	let e = new Date(endingDate);
 	let days = (e.getTime() - s.getTime()) / (1000*60*60*24);
-    console.log(days);
-    return days;
+	return days;
 }
 
 function calculateSimpleInterest(
@@ -64,10 +63,11 @@ function calculateSimpleInterest(
 	startingDate,
 	endingDate
 ) {
-interest = principal * dailyInterest * numberOfDays(startingDate, endingDate) / 100;
-if (interest == NaN) {
+let days = numberOfDays(startingDate, endingDate);
+if (isNaN(days)) {
 	return -1;
 }
+let interest = principal * dailyInterest * days / 100;
 return Math.floor(interest);
 }
 
@@ -77,13 +77,12 @@ function calculateCompoundInterest(
 	startingDate,
 	endingDate
 ) {
-try {
-	interest = principal * ((1 + dailyInterest/100)**numberOfDays(startingDate, endingDate) - 1);
-	return Math.floor(interest);
-} catch(err) {
+let days = numberOfDays(startingDate, endingDate);
+if (isNaN(days)) {
 	return -1;
 }
-
+interest = principal * ((1 + dailyInterest/100)**days - 1);
+return Math.floor(interest);
 }
 
 function extraAmountPercentage(
@@ -94,6 +93,9 @@ function extraAmountPercentage(
 ) {
 
 let compound = calculateCompoundInterest(principal, dailyInterest, startingDate, endingDate);
+if (compound == -1) {
+	return -1;
+}
 let simple = calculateSimpleInterest(principal, dailyInterest, startingDate, endingDate);
 let percentage = Math.floor((compound/simple - 1)*100);
 return Math.floor(percentage);
