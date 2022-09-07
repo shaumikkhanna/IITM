@@ -41,6 +41,13 @@ const obj3 = {
 obj3.normalfunction();
 obj3.arrowFunction();
 
+
+// q08
+setTimeout(() => console.log('hello from st1'), 0);
+console.log('main1');
+setTimeout(() => console.log('hello from st2'), 0);
+console.log('main2');
+
 // q10
 let startNamePrinter = (name) => {
 	let x = name.split('').reverse();
