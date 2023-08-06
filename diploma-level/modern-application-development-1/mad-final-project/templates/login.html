@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<title>Tracker app</title>
+</head>
+<body>
+	<div class="jumbotron">
+		<h1>
+			Tracker app
+		</h1>
+	</div>
+	<h3>
+		Login page
+	</h3>
+	<div class="container">
+		<form class="form-horizontal" action="/" method="POST">
+			<div class="form-group">
+				<label for="username">Username</label>
+				<input type="text" name="username" class="form-control" required>
+			</div>
+			<div class="form-group">
+				<label for="password">Password</label>
+				<input type="password" name="password" class="form-control" required>
+			</div>
+			<div class="container">
+				<button type="submit" class="btn btn-primary" name="Go">
+					Log me in!
+				</button>
+			</div>
+		</form>
+		</div>
+		<br>
+	<div class="container">
+		Don't have an account ? <a href="/signup">Sign up now</a>
+	</div>
+</body>
+</html>

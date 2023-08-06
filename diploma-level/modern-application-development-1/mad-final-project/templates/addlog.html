@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<title>
+		Add log
+	</title>
+</head>
+<body>
+	<div class="jumbotron">
+		<h1>
+			Add log
+		</h1>
+	</div>
+	<h3>
+		Tracker - {{ tracker.tracker_name }}
+	</h3>
+	<div class="logout">
+		{{ username }} <br>
+		<a href="/">
+			Logout
+		</a>
+	</div>
+	<div class="backtodash">
+		<a href="/dashboard/{{ username }}">
+			Back to Dash
+		</a>
+	</div>
+	<div class="container">
+		<form action="/log/create/{{ username }}/{{ tracker.tracker_id }}" method="POST" class="form-vertical">
+			<div class="form-group">
+				<label>When: </label>
+				<input type="datetime-local" name="timestamp" value="{{ timestamp_now }}" required/>
+			</div>
+
+			{% if tracker.tracker_type == 'numeric' %}
+			
+			<div class="form-group">
+				<label>Value: </label>
+				<input type="text" name="value" required />
+			</div>
+			
+			{% elif tracker.tracker_type == 'categorical' %}
+			
+			<div class="form-group">
+				<label>Value: </label>
+				{% for category in tracker.categories.split(',') %}
+				<input type="radio" name="value" value="{{ category }}" />
+				<label>{{ category }}</label>
+				{% endfor %}
+			</div>
+			
+			{% elif tracker.tracker_type == 'boolean' %}
+			
+			<div class="form-group">
+				<label>Value: </label>
+				<input type="radio" name="value" value="yes" />
+				<label>Yes</label>
+				<input type="radio" name="value" value="no" />
+				<label>No</label>
+			</div>
+			
+			{% endif %}
+
+			<div class="form-group">
+				<label>Message: </label>
+				<textarea name="message" rows="4" cols="50"> </textarea>
+			</div>
+			<div class="form-group">
+				<button type="submit" class="btn btn-primary" name="Go">
+					Add log
+				</button>
+			</div>
+		</form>
+	</div>
+</body>
+</html>
