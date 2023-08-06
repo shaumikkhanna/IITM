@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<title>
+		My Dashboard
+	</title>
+</head>
+<body>
+	<div class="logout">
+		{{ username }} <br>
+		<a href="/">
+			Logout
+		</a>
+	</div>
+	<div class="jumbotron">
+		<h1>
+			{{ username }}'s Dashboard
+		</h1>
+	</div>
+	<div class="container">
+		<table class="table table-hover">
+			<tr>
+				<th>Tracker</th>
+				<th>Last tracked</th>
+				<th>Add Log</th>
+				<th>Actions</th>
+				<th>Type</th>
+			</tr>
+			{% for tracker in trackers %}
+			<tr>
+				<td><a href="/dashboard/{{ username }}/{{ tracker.tracker_id }}">{{ tracker.tracker_name }}</a></td>
+				<td>{{ tracker.last_tracked() }}</td>
+				<td> <a href="/log/create/{{ username }}/{{ tracker.tracker_id }}"> + </a> </td>
+				<td>
+					<div class="dropdown">
+						<button class="dropbtn">Dropdown</button>
+						<div class="dropdown-content">
+							<a href="/tracker/edit/{{ username }}/{{ tracker.tracker_id }}">Edit</a>
+							<a href="/tracker/delete/{{ username }}/{{ tracker.tracker_id }}">Delete</a>
+						</div>
+					</div>
+				</td>
+				<td>{{ tracker.tracker_type|upper }}</td>
+			</tr>
+			{% endfor %}
+		</table>
+	</div>
+	<div class="container">
+		<a href="/tracker/create/{{ username }}">
+			Create new tracker
+		</a>
+	</div>
+</body>
+</html>

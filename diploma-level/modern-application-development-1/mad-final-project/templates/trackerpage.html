@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<title>
+		Tracker page
+	</title>
+</head>
+<body>
+	<div class="jumbotron">
+		<h1>
+			Tracker page
+		</h1>
+	</div>
+	<div class="logout">
+		{{ username }} <br>
+		<a href="/">
+			Logout
+		</a>
+	</div>
+	<div class="backtodash">
+		<a href="/dashboard/{{ username }}">
+			Back to Dash
+		</a>
+	</div>
+	<h3>
+		Visual representation
+	</h3>
+	<img src="{{ url_for('static', filename='graph.png') }}" class="center">
+	<h3>
+		Logs
+	</h3>
+	<div class="container">
+		<table class="table table-hover">
+			<tr>
+				<th>On</th>
+				<th>Value</th>
+				<th>Message</th>
+				<th>Actions</th>
+			</tr>
+			{% for log in tracker_logs %}
+			<tr>
+				<td>{{ log.timestamp }}</td>
+				<td>{{ log.value }}</td>
+				<td>{{ log.message }}</td>
+				<td>
+					<div class="dropdown">
+						<button class="dropbtn">Dropdown</button>
+						<div class="dropdown-content">
+							<a href="/log/edit/{{ username }}/{{ tracker.tracker_id }}/{{ log.log_id }}">Edit</a>
+							<a href="/log/delete/{{ username }}/{{ tracker.tracker_id }}/{{ log.log_id }}">Delete</a>
+						</div>
+					</div>
+				</td>
+			</tr>
+			{% endfor %}
+		</table>
+	</div>
+</body>
+</html>

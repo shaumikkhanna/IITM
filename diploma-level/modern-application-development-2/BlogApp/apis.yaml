@@ -1,0 +1,138 @@
+BlogApp: "1.0.1"
+info: 
+    version: "1.0.1"
+    title: Blog Social App
+
+host: localhost:8000
+basePath: /
+schemes:
+  -http
+paths:
+/api/signup:
+      post:
+        description: Creates user and returns 'Email','Username' and 'Name'
+        body:
+          - username: username
+            email: email
+            password: password
+        responses:
+          200:
+          description: User created successfully
+          400:
+          description: Error creating user 
+        default:
+          description: ERROR
+/api/login:
+    post:
+      description: Authenticate user and returns 'Token'
+      body:
+        - username: username
+          password: password
+      responses:
+        200:
+          description: Login successful.
+        401:
+          description: Invalid email or password.
+        default:
+          description: ERROR
+/api/protected:
+    get:
+      description: Gets all Trackers of the user
+      headers:Content-type: application/json,
+              Authorization: token,
+      responses:
+        200:
+          description: Protected API endpoint.
+        401:
+          description: Unauthorized.        
+        default:
+          description: ERROR
+/api/create_blog:
+    post:
+      description: Creates a blog post
+
+      headers:
+        Content-type: application/json,
+        Authorization: token,
+        Access-Control-Allow-Origin : '*',
+        Access-Control-Allow-Methods: 'GET,PUT,POST,DELETE,PATCH,OPTIONS'
+      
+      parameters:
+        - title: data,
+          content: content 
+      responses:
+        200:
+          description: Blog created successfully
+
+        401:
+          description: Unauthorised
+        
+        default:
+          description: ERROR
+/api/blogs:
+    get:
+      description: Fetches all blogs from all users
+      responses:
+        200:
+          description: Blogs
+        
+        401:
+          description: Unauthorised
+        
+        default:
+          description: ERROR
+/api/blogs/:blog_id:
+    get:
+      description: Get details of a particular blog
+      headers:
+        Content-type: application/json,
+        Authorization: token,
+        Access-Control-Allow-Origin : '*',
+        Access-Control-Allow-Methods: 'GET,PUT,POST,DELETE,PATCH,OPTIONS'
+      responses:
+        200:
+          description: OK, returns blog data
+        401:
+          description: Unauthorised
+        
+        default:
+          description: ERROR
+
+    put:
+      description: Edit details of a blog 
+
+      headers:
+        Content-type: application/json,
+        Authorization: token,
+        Access-Control-Allow-Origin : '*',
+        Access-Control-Allow-Methods: 'GET,PUT,POST,DELETE,PATCH,OPTIONS'
+      body:
+        - name: Blog Title
+          contenr: Blog Content
+      responses:
+        200:
+          description: Blog Edited
+        401:
+          description: Unauthorised
+        default:
+          description: ERROR
+
+    delete:
+        description: Delete Blog
+
+        headers:
+          Content-type: application/json,
+          Authorization: token,
+          Access-Control-Allow-Origin : '*',
+          Access-Control-Allow-Methods: 'GET,PUT,POST,DELETE,PATCH,OPTIONS'
+
+        responses:
+          200:
+            description: OK, blog deleted
+          
+          401:
+            description: Unauthorised
+          
+          default:
+            description: ERROR
+

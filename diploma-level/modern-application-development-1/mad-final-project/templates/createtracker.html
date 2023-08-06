@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<title>
+		Create tracker
+	</title>
+</head>
+<body>
+	<div class="jumbotron">
+		<h1>
+			Create tracker
+		</h1>
+	</div>
+	<div class="logout">
+		{{ username }} <br>
+		<a href="/">
+			Logout
+		</a>
+	</div>
+	<div class="backtodash">
+		<a href="/dashboard/{{ username }}">
+			Back to Dash
+		</a>
+	</div>
+	<div class="container">
+		<form action="/tracker/create/{{ username }}" method="POST" class="form-vertical">
+			<div class="form-group">
+				<label>Tracker Name:</label>
+				<input type="text" name="tracker_name" required />
+			</div>
+			<div class="form-group">
+				<label>Tracker Description:</label>
+				<textarea name="tracker_description" rows="4" cols="50"> </textarea>
+			</div>
+			<div class="form-group">
+				<label>Tracker Type: </label>
+				<input type="radio" name="tracker_type" value="numeric" />
+				<label>Numeric</label>
+				<input type="radio" name="tracker_type" value="boolean" />
+				<label>Boolean</label>
+				<input type="radio" name="tracker_type" value="categorical" />
+				<label>Categorical</label>
+			</div>
+			<div class="form-group">
+				Enter comma separated categories here: 
+				<input type="text" name="categories" style="width: 600px;" />
+			</div>
+			<div class="form-group">
+					<button type="submit" class="btn btn-primary" name="Go">
+						Create tracker
+					</button>
+			</div>
+		</form>
+	</div>
+</body>
+</html>

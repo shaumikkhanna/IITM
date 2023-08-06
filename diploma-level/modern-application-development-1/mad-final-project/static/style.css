@@ -1,0 +1,47 @@
+h1, h3 { 
+	text-align: center;
+}
+div[class="logout"] {
+	position: absolute;
+	top: 40px;
+	right: 40px
+}
+div[class="backtodash"] {
+	position: absolute;
+	top: 40px;
+	left: 40px
+}
+table[class="tracker-table"] {
+	border: 1px solid black;
+	border-collapse: collapse;
+	text-align: center;
+}
+td, th {
+	border: 1px solid black;
+	border-collapse: collapse;
+	text-align: center;
+	padding: 10px;
+}
+.dropdown {
+	position: relative;
+	display: inline-block;
+}
+.dropdown-content {
+	display: none;
+	position: absolute;
+	min-width: 100%;
+	z-index: 1;
+	background-color: lightblue;
+}
+.dropdown-content a {
+	display: block;
+}
+.dropdown:hover .dropdown-content {
+	display: block;
+}
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
